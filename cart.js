@@ -5,25 +5,23 @@ const cart = {
   totalPrice: 0,
   count: 0,
 
-
-
   getTotalPrice() {
     this.totalPrice;
   },
-  add(productName, priceName, countName) {
+  add(product, price, count) {
     this.items.push({
-      productName,
-      priceName,
-      countName,
+      product,
+      price,
+      count,
     });
     this.increaseCount();
     this.calculateItemPrice();
   },
   calculateItemPrice() {
-    this.totalPrice += (this.items[this.items.length-1].priceName * this.items[this.items.length-1].countName);
+    this.totalPrice = this.items.reduce((sum, {price, count}) => sum + (price * count), 0);
   },
   increaseCount() {
-    this.count += this.items[this.items.length-1].countName;
+    this.count = this.items.reduce((sum, {count}) => sum + count, 0);
   },
   print() {
     const basket = JSON.stringify(this.items);
@@ -35,10 +33,12 @@ const cart = {
     this.count = 0;
   },
 };
-
 cart.add("сапоги", 5000, 15);
 cart.add("пальто", 5000, 10);
 cart.add("шапка", 5000, 1);
+cart.add("рубашка", 5000, 100);
+cart.add("штаны", 5000, 20);
+cart.add("портянки", 5000, 100);
 cart.print();
 cart.clear();
 cart.print();
